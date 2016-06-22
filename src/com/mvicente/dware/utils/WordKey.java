@@ -14,6 +14,6 @@ public class WordKey
 
     public void readWordList(String wordFile)
     {
-
+        System.out.println("TEST");
     }
 }
