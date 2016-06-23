@@ -41,6 +41,12 @@ public class CLI
         System.out.print("action: ");
     }
 
+    public void displayWordFileLoad()
+    {
+        System.out.println("Please enter the path to the Word File.");
+        System.out.print("Path: ");
+    }
+
     public boolean makeChoice(Menu menu, int choice)
     {
         if(choice > this.menuRange[menu.value] || choice < 0)
@@ -60,14 +66,21 @@ public class CLI
         return this.choice[menu.value];
     }
 
+    public void setWordFile(String wordFile)
+    {
+        this.wordFile = wordFile;
+    }
+
     public void displayMenuError(Menu menu)
     {
-        System.out.println();
-        System.out.println();
-        System.out.println();
+        for(int i = 0; i < 3; i++)
+        {
+            System.out.println();
+        }
         System.out.println("Invalid menu choice, please use a value between 0 and " + this.menuRange[menu.value]);
-        System.out.println();
-        System.out.println();
-        System.out.println();
+        for(int i = 0; i < 3; i++)
+        {
+            System.out.println();
+        }
     }
 }
