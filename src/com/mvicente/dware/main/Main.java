@@ -1,8 +1,8 @@
 package com.mvicente.dware.main;
 
 import com.mvicente.dware.utils.CLI;
+import com.mvicente.dware.utils.Menu;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main
@@ -12,25 +12,25 @@ public class Main
         CLI tCLI = new CLI();
 
         int choice = -1;
+        String input;
         boolean validChoice = false;
         Scanner inputReader = new Scanner(System.in);
 
         while(!validChoice)
         {
-            tCLI.displayMenu();
+            tCLI.displayMenu(Menu.MAIN);
 
             try
             {
-                choice = inputReader.nextInt();
+                input = inputReader.next();
+                choice = Integer.parseInt(input);
             }
-            catch (InputMismatchException ex)
+            catch (NumberFormatException ex)
             {
                 choice = -1;
-                System.out.println(choice);
-                System.exit(-1);
             }
 
-            validChoice = tCLI.makeChoice(choice);
+            validChoice = tCLI.makeChoice(Menu.MAIN, choice);
         }
     }
 }

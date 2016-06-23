@@ -53,3 +53,4 @@ fabric.properties
 
 ### my ignores ###
 /files
+/out
