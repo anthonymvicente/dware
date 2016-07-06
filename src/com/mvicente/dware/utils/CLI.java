@@ -73,12 +73,14 @@ public class CLI
 
     public void displayMenuError(Menu menu)
     {
-        for(int i = 0; i < 3; i++)
-        {
-            System.out.println();
-        }
+        this.printBlanks(3);
         System.out.println("Invalid menu choice, please use a value between 0 and " + this.menuRange[menu.value]);
-        for(int i = 0; i < 3; i++)
+        this.printBlanks(3);
+    }
+
+    public void printBlanks(int numLines)
+    {
+        for(int i = 0; i < numLines; i++)
         {
             System.out.println();
         }

@@ -5,6 +5,7 @@ import com.mvicente.dware.utils.CLI;
 import com.mvicente.dware.utils.Menu;
 import com.mvicente.dware.utils.WordKey;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main
@@ -13,7 +14,7 @@ public class Main
     {
         CLI tCLI = new CLI();
 
-        int choice = -1;
+        int choice;
         String input;
 
         boolean validChoice = false;
@@ -21,7 +22,7 @@ public class Main
         boolean opSuccess = false;
 
         Scanner inputReader = new Scanner(System.in);
-        WordKey wKey = null;
+        WordKey wKey = new WordKey();
 
         while(!userExit)
         {
@@ -41,6 +42,8 @@ public class Main
                 validChoice = tCLI.makeChoice(Menu.MAIN, choice);
             }
 
+            validChoice = false;
+
             switch(tCLI.getChoice(Menu.MAIN))
             {
                 case 0:
@@ -48,14 +51,25 @@ public class Main
                     break;
                 case 1:
                     String wordFile;
+                    tCLI.displayWordFileLoad();
                     wordFile = inputReader.next();
-                    opSuccess = DwareDriver.buildWordKey(wKey, wordFile);
+
+                    try
+                    {
+                        opSuccess = DwareDriver.buildWordKey(wKey, wordFile);
+                    }
+                    catch (IOException | IndexOutOfBoundsException | NumberFormatException ex)
+                    {
+                        ex.printStackTrace();
+                    }
+
                     if(opSuccess)
                     {
                         tCLI.setWordFile(wordFile);
                     }
                     break;
-
+                default:
+                    break;
             }
         }
     }

@@ -9,10 +9,9 @@ public class WordKey
 {
     private HashMap<Integer, String> wordMap;
 
-    public WordKey(String wordFile)
+    public WordKey()
     {
         wordMap = new HashMap<>();
-        readWordList(wordFile);
     }
 
     public String getWord(int key)
@@ -20,44 +19,33 @@ public class WordKey
         return wordMap.get(key);
     }
 
-    public String getWord(String key)
+    public String getWord(String key) throws NumberFormatException
     {
-        String value = null;
-        try
-        {
-            value = wordMap.get(Integer.parseInt(key));
-        }
-        catch (NumberFormatException ex)
-        {
-            ex.printStackTrace();
-        }
+        int iKey = 0;
+
+        iKey = Integer.parseInt(key);
+
+        String value = wordMap.get(iKey);
 
         return value;
     }
 
-    public void readWordList(String wordFile)
+    public void readWordList(String wordFile) throws IOException, IndexOutOfBoundsException, NumberFormatException
     {
-        try
+        BufferedReader bReader = new BufferedReader(new FileReader(wordFile));
+        String line;
+        while ((line = bReader.readLine()) != null)
         {
-            BufferedReader breader = new BufferedReader(new FileReader(wordFile));
-            String line;
-            while ((line = breader.readLine()) != null)
+            String lineArr[] = line.split("\t");
+
+            if(lineArr.length != 2)
             {
-                String lineArr[] = line.split("\t");
-
-                if(lineArr.length != 2)
-                {
-                    throw new IndexOutOfBoundsException("Improperly formatted word file");
-                }
-
-                String key = lineArr[0];
-                String value = lineArr[1];
-                wordMap.put(Integer.parseInt(key), value);
+                throw new IndexOutOfBoundsException("Improperly formatted word file");
             }
-        }
-        catch(IOException|IndexOutOfBoundsException|NumberFormatException ex)
-        {
-            ex.printStackTrace();
+
+            String key = lineArr[0];
+            String value = lineArr[1];
+            wordMap.put(Integer.parseInt(key), value);
         }
     }
 }
