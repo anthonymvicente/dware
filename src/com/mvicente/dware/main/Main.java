@@ -6,6 +6,8 @@ import com.mvicente.dware.utils.Menu;
 import com.mvicente.dware.utils.WordKey;
 
 import java.io.IOException;
+import java.security.SecureRandom;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main
@@ -16,8 +18,11 @@ public class Main
 
         boolean userExit = false;
 
+        Random generator = new SecureRandom();
+
+        DwareDriver driver = new DwareDriver(generator);
+
         Scanner inputReader = new Scanner(System.in);
-        WordKey wKey = new WordKey();
 
         while(!userExit)
         {
@@ -34,7 +39,7 @@ public class Main
 
                     try
                     {
-                        DwareDriver.buildWordKey(wKey, wordFile);
+                        driver.buildWordKey(wordFile);
                     }
                     catch (IOException | IndexOutOfBoundsException | NumberFormatException ex)
                     {
