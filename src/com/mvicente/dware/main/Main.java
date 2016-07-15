@@ -14,35 +14,14 @@ public class Main
     {
         CLI tCLI = new CLI();
 
-        int choice;
-        String input;
-
-        boolean validChoice = false;
         boolean userExit = false;
-        boolean opSuccess = false;
 
         Scanner inputReader = new Scanner(System.in);
         WordKey wKey = new WordKey();
 
         while(!userExit)
         {
-            while (!validChoice)
-            {
-                tCLI.displayMenu(Menu.MAIN);
-
-                try
-                {
-                    input = inputReader.next();
-                    choice = Integer.parseInt(input);
-                } catch (NumberFormatException ex)
-                {
-                    choice = -1;
-                }
-
-                validChoice = tCLI.makeChoice(Menu.MAIN, choice);
-            }
-
-            validChoice = false;
+            tCLI.displayMenu(Menu.MAIN, inputReader);
 
             switch(tCLI.getChoice(Menu.MAIN))
             {
@@ -51,22 +30,21 @@ public class Main
                     break;
                 case 1:
                     String wordFile;
-                    tCLI.displayWordFileLoad();
-                    wordFile = inputReader.next();
+                    wordFile = tCLI.wordFileLoad(inputReader);
 
                     try
                     {
-                        opSuccess = DwareDriver.buildWordKey(wKey, wordFile);
+                        DwareDriver.buildWordKey(wKey, wordFile);
                     }
                     catch (IOException | IndexOutOfBoundsException | NumberFormatException ex)
                     {
+                        // TODO - this should show an error and reset for continued use.
                         ex.printStackTrace();
                     }
 
-                    if(opSuccess)
-                    {
-                        tCLI.setWordFile(wordFile);
-                    }
+                    tCLI.setWordFile(wordFile);
+                    break;
+                case 2:
                     break;
                 default:
                     break;

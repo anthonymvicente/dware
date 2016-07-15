@@ -1,6 +1,7 @@
 package com.mvicente.dware.utils;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class CLI
 {
@@ -19,14 +20,33 @@ public class CLI
         menuRange = new int[]{2};
     }
 
-    public void displayMenu(Menu menu)
+    public boolean displayMenu(Menu menu, Scanner inputReader)
     {
-        switch(menu)
+        boolean validChoice = false;
+
+        while(!validChoice)
         {
-            case MAIN:
-                this.displayMainMenu();
-                break;
+            switch (menu)
+            {
+                case MAIN:
+                    this.displayMainMenu();
+                    break;
+            }
+
+            int choice = -1;
+
+            try
+            {
+                choice = Integer.parseInt(inputReader.next());
+            } catch (NumberFormatException ex)
+            {
+                choice = -1;
+            }
+
+            validChoice = makeChoice(menu, choice);
         }
+
+        return validChoice;
     }
 
     public void displayMainMenu()
@@ -41,10 +61,12 @@ public class CLI
         System.out.print("action: ");
     }
 
-    public void displayWordFileLoad()
+    public String wordFileLoad(Scanner inputReader)
     {
         System.out.println("Please enter the path to the Word File.");
         System.out.print("Path: ");
+
+        return inputReader.next();
     }
 
     public boolean makeChoice(Menu menu, int choice)
