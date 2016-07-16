@@ -48,7 +48,7 @@ public class DwareDriver
         for(int i = 0; i < numOfWords; i++)
         {
             passBuilder.append(this.getWord());
-            if(i != numOfWords - 1)
+            if(i != numOfWords - 1 && separatorPool.size() > 0)
             {
                 passBuilder.append(this.getSeparator());
             }

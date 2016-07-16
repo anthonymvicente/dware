@@ -84,23 +84,23 @@ public class CLI
         System.out.println("Current Word File: " + this.wordFile);
         System.out.println("Current Settings:");
         System.out.println("\tNumber of Words: " + numWords);
-        System.out.println("\tSeparators");
+        System.out.println("\tSeparators:");
         System.out.print("\t");
         if(poolFlags[0])
         {
-            System.out.print("[x] Digits");
+            System.out.print("[x] Digits ");
         }
         else
         {
-            System.out.print("[ ] Digits");
+            System.out.print("[ ] Digits ");
         }
         if(poolFlags[1])
         {
-            System.out.print("[x] Special Characters");
+            System.out.print("[x] Special Characters ");
         }
         else
         {
-            System.out.print("[ ] Special Characters");
+            System.out.print("[ ] Special Characters ");
         }
         if(poolFlags[2])
         {
@@ -121,6 +121,20 @@ public class CLI
         System.out.println("Generated Password: " + this.currentPassword);
         System.out.println();
         System.out.print("action: ");
+    }
+
+    public void displayGeneralError(String errorMsg)
+    {
+        printBlanks(3);
+        System.out.println(errorMsg);
+        printBlanks(3);
+    }
+
+    public void displayMenuError(Menu menu)
+    {
+        this.printBlanks(3);
+        System.out.println("Invalid menu choice, please use a value between 0 and " + this.menuRange[menu.value]);
+        this.printBlanks(3);
     }
 
     public String wordFileLoad(Scanner inputReader)
@@ -148,16 +162,11 @@ public class CLI
             catch(NumberFormatException ex)
             {
                 userNum = -1;
-                printBlanks(3);
-                System.out.println("Please enter a number.");
-                printBlanks(3);
             }
 
             if(userNum < 1)
             {
-                printBlanks(3);
-                System.out.println("Please enter a positive number.");
-                printBlanks(3);
+                displayGeneralError("Please enter a positive number.");
             }
             else
             {
@@ -237,6 +246,8 @@ public class CLI
                 default:
                     break;
             }
+
+            printBlanks(3);
         }
     }
 
@@ -264,6 +275,11 @@ public class CLI
         this.wordFile = wordFile;
     }
 
+    public String getWordFile()
+    {
+        return this.wordFile;
+    }
+
     public int getNumWords()
     {
         return this.numWords;
@@ -282,13 +298,6 @@ public class CLI
     public boolean[] getPoolFlags()
     {
         return this.poolFlags;
-    }
-
-    public void displayMenuError(Menu menu)
-    {
-        this.printBlanks(3);
-        System.out.println("Invalid menu choice, please use a value between 0 and " + this.menuRange[menu.value]);
-        this.printBlanks(3);
     }
 
     public void printBlanks(int numLines)
