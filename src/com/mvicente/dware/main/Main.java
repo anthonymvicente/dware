@@ -64,6 +64,7 @@ public class Main
                                 tCLI.chooseNumWords(inputReader);
                                 break;
                             case 2:
+                                tCLI.chooseSeparators(inputReader);
                                 break;
                         }
                     }

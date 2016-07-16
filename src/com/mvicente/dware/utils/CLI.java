@@ -109,7 +109,7 @@ public class CLI
         System.out.println();
         System.out.println("0) Return to Main Menu");
         System.out.println();
-        System.out.println("action: ");
+        System.out.print("action: ");
     }
 
     public String wordFileLoad(Scanner inputReader)
@@ -129,7 +129,7 @@ public class CLI
 
         while (!validNumber)
         {
-            System.out.println("Number of words: ");
+            System.out.print("Number of words: ");
             try
             {
                 userNum = Integer.parseInt(inputReader.next());
@@ -155,6 +155,78 @@ public class CLI
         }
 
         this.numWords = userNum;
+    }
+
+    public void chooseSeparators(Scanner inputReader)
+    {
+        boolean userReturn = false;
+        int userChoice = -1;
+
+        while(!userReturn)
+        {
+            System.out.println("Select your separators:");
+            System.out.print("1) Digits");
+            if(poolFlags[0])
+            {
+                System.out.print(" [x]");
+            }
+            else
+            {
+                System.out.print(" [ ]");
+            }
+            System.out.println();
+            System.out.print("2) Special");
+            if(poolFlags[1])
+            {
+                System.out.print(" [x]");
+            }
+            else
+            {
+                System.out.print(" [ ]");
+            }
+            System.out.println();
+            System.out.print("3) Brackets");
+            if(poolFlags[2])
+            {
+                System.out.print(" [x]");
+            }
+            else
+            {
+                System.out.print(" [ ]");
+            }
+            System.out.println();
+            System.out.println();
+            System.out.println("0) Return");
+            System.out.println();
+            System.out.print("action: ");
+
+            try
+            {
+                userChoice = Integer.parseInt(inputReader.next());
+            }
+            catch(NumberFormatException ex)
+            {
+                userChoice = -1;
+            }
+
+            switch(userChoice)
+            {
+                case 0:
+                    userReturn = true;
+                    break;
+                case 1:
+                    poolFlags[0] = !poolFlags[0];
+                    break;
+                case 2:
+                    poolFlags[1] = !poolFlags[1];
+                    break;
+                case 3:
+                    poolFlags[2] = !poolFlags[2];
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     public boolean makeChoice(Menu menu, int choice)

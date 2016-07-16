@@ -89,15 +89,27 @@ public class DwareDriver
         {
             separatorPool.addAll(Arrays.asList(this.digitPool));
         }
+        else
+        {
+            separatorPool.removeAll(Arrays.asList(this.digitPool));
+        }
 
         if(specialPool)
         {
             separatorPool.addAll(Arrays.asList(this.specialPool));
         }
+        else
+        {
+            separatorPool.removeAll(Arrays.asList(this.specialPool));
+        }
 
         if(bracketPool)
         {
             separatorPool.addAll(Arrays.asList(this.bracketPool));
+        }
+        else
+        {
+            separatorPool.removeAll(Arrays.asList(this.bracketPool));
         }
     }
 }
