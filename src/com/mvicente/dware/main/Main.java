@@ -58,6 +58,7 @@ public class Main
                         switch (tCLI.getChoice(Menu.GEN))
                         {
                             case 0:
+                                tCLI.resetPasswordSettings();
                                 userReturn = true;
                                 break;
                             case 1:
@@ -65,6 +66,23 @@ public class Main
                                 break;
                             case 2:
                                 tCLI.chooseSeparators(inputReader);
+                                break;
+                            case 3:
+                                boolean digitFlag, specialFlag, bracketFlag;
+                                int numWords;
+                                String password;
+
+                                digitFlag = tCLI.getPoolFlags()[0];
+                                specialFlag = tCLI.getPoolFlags()[1];
+                                bracketFlag = tCLI.getPoolFlags()[2];
+                                numWords = tCLI.getNumWords();
+
+                                driver.buildSeparatorPool(digitFlag, specialFlag, bracketFlag);
+
+                                password = driver.generatePassword(numWords);
+
+                                tCLI.setCurrentPassword(password);
+
                                 break;
                         }
                     }

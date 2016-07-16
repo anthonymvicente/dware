@@ -80,10 +80,10 @@ public class DwareDriver
             intString.append(dice.roll());
         }
 
-        return intString.toString();
+        return wKey.getWord(intString.toString());
     }
 
-    private void buildSeparatorPool(boolean digitPool, boolean specialPool, boolean bracketPool)
+    public void buildSeparatorPool(boolean digitPool, boolean specialPool, boolean bracketPool)
     {
         if(digitPool)
         {

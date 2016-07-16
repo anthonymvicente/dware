@@ -8,6 +8,7 @@ public class CLI
     private String wordFile;
     private int numWords;
     private boolean poolFlags[];
+    private String currentPassword;
 
     private int choice[];
     private int menuRange[];
@@ -15,6 +16,7 @@ public class CLI
     public CLI()
     {
         this.wordFile = "(none)";
+        this.currentPassword = "(none)";
 
         choice = new int[2];
         Arrays.fill(choice, -1);
@@ -23,6 +25,13 @@ public class CLI
 
         numWords = 0;
         poolFlags = new boolean[3];
+        Arrays.fill(poolFlags, false);
+    }
+
+    public void resetPasswordSettings()
+    {
+        this.currentPassword = "(none)";
+        numWords = 0;
         Arrays.fill(poolFlags, false);
     }
 
@@ -108,6 +117,8 @@ public class CLI
         System.out.println("3) Generate Password");
         System.out.println();
         System.out.println("0) Return to Main Menu");
+        System.out.println();
+        System.out.println("Generated Password: " + this.currentPassword);
         System.out.println();
         System.out.print("action: ");
     }
@@ -256,6 +267,16 @@ public class CLI
     public int getNumWords()
     {
         return this.numWords;
+    }
+
+    public void setCurrentPassword(String currentPassword)
+    {
+        this.currentPassword = currentPassword;
+    }
+
+    public String getCurrentPassword()
+    {
+        return this.currentPassword;
     }
 
     public boolean[] getPoolFlags()
