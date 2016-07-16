@@ -17,6 +17,7 @@ public class Main
         CLI tCLI = new CLI();
 
         boolean userExit = false;
+        boolean userReturn = false;
 
         Random generator = new SecureRandom();
 
@@ -50,6 +51,23 @@ public class Main
                     tCLI.setWordFile(wordFile);
                     break;
                 case 2:
+                    while(!userReturn)
+                    {
+                        tCLI.displayMenu(Menu.GEN, inputReader);
+
+                        switch (tCLI.getChoice(Menu.GEN))
+                        {
+                            case 0:
+                                userReturn = true;
+                                break;
+                            case 1:
+                                tCLI.chooseNumWords(inputReader);
+                                break;
+                            case 2:
+                                break;
+                        }
+                    }
+                    userReturn = false;
                     break;
                 default:
                     break;

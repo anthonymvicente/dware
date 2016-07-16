@@ -4,21 +4,28 @@ import com.mvicente.dware.utils.Dice;
 import com.mvicente.dware.utils.WordKey;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class DwareDriver
 {
     final int STANDARD_DICE_SIDES = 6;
+    final String digitPool[] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+    final String specialPool[] = {"`", "~", "!", "@", "#", "$", "%", "^", "&", "*", "'", "\"", "?", ".", ",", "\\", "/", "-", "_", "|"};
+    final String bracketPool[] = {"(", ")", "[", "]", "{", "}", "<", ">"};
 
     private Dice dice;
     private Random generator;
     private WordKey wKey;
+    private ArrayList<String> separatorPool;
 
     public DwareDriver(Random generator)
     {
         this.dice = new Dice(generator, STANDARD_DICE_SIDES);
         this.generator = generator;
-        wKey = new WordKey();
+        this.wKey = new WordKey();
+        this.separatorPool = new ArrayList<String>();
     }
 
     // Driver method for building a WordKey object
@@ -31,18 +38,19 @@ public class DwareDriver
 
     // Base generate password method
     // generalized to allow different separators to be combined for generating passwords
-    public String generatePassword(int numOfWords, String separatorPool[])
+    public String generatePassword(int numOfWords)
     {
         String password;
 
-        StringBuilder passBuilder = new StringBuilder();
+        StringBuilder passBuilder;
+        passBuilder = new StringBuilder();
 
         for(int i = 0; i < numOfWords; i++)
         {
             passBuilder.append(this.getWord());
             if(i != numOfWords - 1)
             {
-                passBuilder.append(this.getSeparator(separatorPool));
+                passBuilder.append(this.getSeparator());
             }
         }
 
@@ -52,13 +60,13 @@ public class DwareDriver
     }
 
     // Selects a single separator character from the current pool
-    private String getSeparator(String separatorPool[])
+    private String getSeparator()
     {
         String separator;
 
-        Dice tempDie = new Dice(generator, separatorPool.length);
+        Dice tempDie = new Dice(generator, separatorPool.size());
 
-        separator = separatorPool[tempDie.roll() - 1];
+        separator = separatorPool.get(tempDie.roll() - 1);
 
         return separator;
     }
@@ -73,5 +81,23 @@ public class DwareDriver
         }
 
         return intString.toString();
+    }
+
+    private void buildSeparatorPool(boolean digitPool, boolean specialPool, boolean bracketPool)
+    {
+        if(digitPool)
+        {
+            separatorPool.addAll(Arrays.asList(this.digitPool));
+        }
+
+        if(specialPool)
+        {
+            separatorPool.addAll(Arrays.asList(this.specialPool));
+        }
+
+        if(bracketPool)
+        {
+            separatorPool.addAll(Arrays.asList(this.bracketPool));
+        }
     }
 }
